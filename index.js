@@ -3,6 +3,7 @@ const { createStore } = require("redux");
 // defining constant type
 const INCREMENT = "INCREMENT";
 const DECREMENT = "DECREMENT";
+const RESET = "RESET";
 const ADD_USER = "ADD_USER";
 //state
 //step 1: define state
@@ -32,6 +33,11 @@ const decrementCounterAction = () => {
     type: DECREMENT,
   };
 };
+const resetCounterAction = () => {
+  return {
+    type: RESET,
+  };
+};
 const addUserAction = () => {
   return {
     type: ADD_USER,
@@ -54,6 +60,11 @@ const counterReducer = (state = initialCounterState, action) => {
         ...state, //sob gula state ke niye aslam just count tak update korchi
         count: state.count - 1,
       };
+    case RESET:
+      return {
+        ...state, //sob gula state ke niye aslam just count tak update korchi
+        count: 0,
+      };
     default:
       state;
   }
@@ -63,7 +74,7 @@ const counterReducer = (state = initialCounterState, action) => {
 
 //reducer logic built in action type
 
-//create store -->can receive reduction and receive middleware as a Action
+//create store -->can receive reducer and receive middleware as a Action
 const store = createStore(counterReducer);
 store.subscribe(() => {
   console.log(store.getState());
@@ -73,6 +84,7 @@ store.dispatch(incrementCounterAction());
 store.dispatch(incrementCounterAction());
 store.dispatch(incrementCounterAction());
 store.dispatch(decrementCounterAction());
+store.dispatch(resetCounterAction());
 //store holding our state
 //store method:
 //1.getState() --> see state situation
