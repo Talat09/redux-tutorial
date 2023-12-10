@@ -4,20 +4,13 @@ const { createStore } = require("redux");
 const INCREMENT = "INCREMENT";
 const DECREMENT = "DECREMENT";
 const RESET = "RESET";
-const ADD_USER = "ADD_USER";
+
 //state
 //step 1: define state
 const initialCounterState = {
   count: 0,
 };
 
-const initialUsersState = {
-  users: [
-    {
-      name: "Talat mahmud",
-    },
-  ],
-};
 //action ---> INCREMENT | DECREMENT
 //action main have a object .Object have two working thing
 //Number 1 is Type
@@ -36,12 +29,6 @@ const decrementCounterAction = () => {
 const resetCounterAction = () => {
   return {
     type: RESET,
-  };
-};
-const addUserAction = () => {
-  return {
-    type: ADD_USER,
-    payload: { name: "Amir hamja" },
   };
 };
 
@@ -96,3 +83,72 @@ store.dispatch(resetCounterAction());
 //2. dispatch action
 //3. reducer
 //4.update store
+
+//payload example
+//define constant value type
+
+const INCREMENT_BY_VALUE = "INCREMENT_BY_VALUE";
+//action
+const incrementByValueAction = (value) => {
+  return {
+    type: INCREMENT_BY_VALUE,
+    payload: value,
+  };
+};
+//create reducer
+const valueCreateReducer = (state = initialCounterState, action) => {
+  switch (action.type) {
+    case INCREMENT_BY_VALUE:
+      return {
+        ...state,
+        count: state.count + action.payload,
+      };
+
+    default:
+      state;
+  }
+};
+//create store
+const valueCreateStore = createStore(valueCreateReducer);
+valueCreateStore.subscribe(() => {
+  console.log(valueCreateStore.getState());
+});
+valueCreateStore.dispatch(incrementByValueAction(5));
+valueCreateStore.dispatch(incrementByValueAction(15));
+valueCreateStore.dispatch(incrementByValueAction(15));
+//define constant type
+const ADD_USER = "ADD_USER";
+//define user initial state
+const initialUserState = {
+  users: ["anis"],
+  count: 1,
+};
+//action
+const addUserAction = (user) => {
+  return {
+    type: ADD_USER,
+    payload: user,
+  };
+};
+//create reducer
+const userReducer = (state = initialUserState, action) => {
+  switch (action.type) {
+    case ADD_USER:
+      return {
+        users: [...state.users, action.payload],
+        count: state.count + 1,
+      };
+
+    default:
+      state;
+  }
+};
+//create store
+const userStore = createStore(userReducer);
+userStore.subscribe(() => {
+  console.log(userStore.getState());
+});
+userStore.dispatch(addUserAction("rafy"));
+userStore.dispatch(addUserAction("talat"));
+userStore.dispatch(addUserAction("joy"));
+userStore.dispatch(addUserAction("sanjida"));
