@@ -1,3 +1,5 @@
+//require redux
+const { createStore } = require("redux");
 // defining constant type
 const INCREMENT = "INCREMENT";
 const DECREMENT = "DECREMENT";
@@ -60,6 +62,22 @@ const counterReducer = (state = initialCounterState, action) => {
 //reducer is a pure function which is take input and definitely return output based on type
 
 //reducer logic built in action type
+
+//create store -->can receive reduction and receive middleware as a Action
+const store = createStore(counterReducer);
+store.subscribe(() => {
+  console.log(store.getState());
+});
+//dispatch action
+store.dispatch(incrementCounterAction());
+store.dispatch(incrementCounterAction());
+store.dispatch(incrementCounterAction());
+store.dispatch(decrementCounterAction());
+//store holding our state
+//store method:
+//1.getState() --> see state situation
+//2. dispatch() --> action dispatch
+//3.subscribe()---> store subscribe by view
 
 //step:
 // 1. define state
