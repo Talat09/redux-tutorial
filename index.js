@@ -36,6 +36,32 @@ const addUserAction = () => {
     payload: { name: "Amir hamja" },
   };
 };
+
+//create reducer for counter
+
+const counterReducer = (state = initialCounterState, action) => {
+  switch (action.type) {
+    case INCREMENT:
+      return {
+        ...state, //sob gula state ke niye aslam just count tak update korchi
+        count: state.count + 1,
+      };
+    //
+    case DECREMENT:
+      return {
+        ...state, //sob gula state ke niye aslam just count tak update korchi
+        count: state.count - 1,
+      };
+    default:
+      state;
+  }
+};
+
+//reducer is a pure function which is take input and definitely return output based on type
+
+//reducer logic built in action type
+
+//step:
 // 1. define state
 //2. dispatch action
 //3. reducer
